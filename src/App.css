@@ -17,7 +17,7 @@
   box-shadow: 15px 15px rgb(121, 182, 190);
   border-radius: 1rem;
   margin-top: 1.5rem;
-  width: 50%;
+  width: 60%;
   /* height: 90vh; */
   background-color: #fcfcfc;
   display: flex;
@@ -52,6 +52,11 @@
   margin-top: 8px;
   box-shadow: 4px 4px rgb(104, 105, 105);
 }
+
+.checkbox{
+  margin-right:1rem;
+}
+
 
 .list:hover
 .list:active{

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import logo from "./logo.svg";
+import React, { useState, useEffect } from "react";
+import { v4 as uuidv4 } from "uuid";
 import "./App.css";
 
 function App() {
@@ -9,65 +9,76 @@ function App() {
 
   const [button, setButton] = useState(false);
 
-  const [valueEdit, setValueEdit] = useState();
+  const [idEdit, setIdEdit] = useState();
 
-  const forMap = () => {
-    return todo.map((value) => {
-      return (
-        <div className="list">
-          <div className="list_text">{value}</div>
-          <div className="action">
-            <button className="button__edit" name={value} onClick={onEdit}>
-              EDIT
-            </button>
-            <button className="button__delete" name={value} onClick={onDelete}>
-              DELETE
-            </button>
-          </div>
-        </div>
-      );
-    });
+  useEffect(() => {
+    const getData = localStorage.getItem("myData");
+
+    setTodo(JSON.parse(getData));
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("myData", JSON.stringify(todo));
+  }, [todo]);
+
+  const checkBoxHandler = (id) => {
+    setTodo(
+      todo.map((items) => {
+        if (items.id === id) {
+          if (!items.checkbox) {
+            items.checkbox = true;
+          } else {
+            items.checkbox = false;
+          }
+        }
+        return items;
+      })
+    );
   };
 
   const onInputHandler = (event) => {
-    // console.log("textArea", event.target.value);
     setTextArea(event.target.value);
   };
 
-  const onSubmit = (data) => {
-    setTodo([textArea, ...todo]);
-
+  const onSubmit = () => {
+    setTodo([{ id: uuidv4(), value: textArea, checkbox: false }, ...todo]);
     setTextArea("");
   };
 
-  const onDelete = (event) => {
-    // console.log(event.target.name);
-    setTodo(
-      todo.filter((value) => {
-        return value !== event.target.name;
-      })
-    );
+  const onDelete = (id) => {
+    setTodo(todo.filter((items) => items.id !== id));
   };
 
-  const onEdit = (event) => {
+  const onEdit = (id) => {
+    const findEdit = todo.find((items) => {
+      return items.id === id;
+    });
     setButton(true);
-    setValueEdit(event.target.name);
-    setTextArea(event.target.name);
+    setIdEdit(id);
+    setTextArea(findEdit.value);
   };
 
   const onConfirmEdit = () => {
-    setTodo(
-      todo.map((value) => {
-        if (value === valueEdit) {
-          value = textArea;
-          console.log("test");
-        }
-        return value;
-      })
-    );
+    const findConfirmEdit = todo.map((items) => {
+      if (items.id === idEdit) {
+        items.value = textArea;
+      }
+      return items;
+    });
+    setTodo(findConfirmEdit);
+
     setTextArea("");
     setButton(false);
-    console.log(todo.length);
+  };
+
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      if (button) {
+        onConfirmEdit();
+      } else {
+        onSubmit();
+      }
+    }
   };
 
   return (
@@ -80,7 +91,9 @@ function App() {
               name="list"
               onInput={onInputHandler}
               value={textArea}
-            ></input>
+              onKeyPress={handleKeyPress}
+              maxLength="40"
+            />
 
             {button ? (
               <button className="button" onClick={onConfirmEdit}>
@@ -92,7 +105,36 @@ function App() {
               </button>
             )}
           </div>
-          {forMap()}
+          {todo.map((value) => (
+            <div className="list" key={value.id}>
+              <div className="list_text">
+                {" "}
+                <input
+                  className="checkbox"
+                  type="checkbox"
+                  onClick={() => checkBoxHandler(value.id)}
+                  checked={value.checkbox}
+                />
+                {value.value}
+              </div>
+              <div className="action">
+                <button
+                  className="button__edit"
+                  name={value.value}
+                  onClick={() => onEdit(value.id)}
+                >
+                  EDIT
+                </button>
+                <button
+                  className="button__delete"
+                  name={value.value}
+                  onClick={() => onDelete(value.id)}
+                >
+                  DELETE
+                </button>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
