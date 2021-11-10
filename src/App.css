@@ -13,13 +13,11 @@
   color: #61dafb;
 }
 .board{
-  border: solid rgb(212, 211, 211);
-  box-shadow: 15px 15px rgb(121, 182, 190);
-  border-radius: 1rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border-radius: 10px;
   margin-top: 1.5rem;
   width: 60%;
-  /* height: 90vh; */
-  background-color: #fcfcfc;
+  background-color: #eee;
   display: flex;
   flex-direction: column;
   justify-content: start;
@@ -36,7 +34,6 @@
   justify-content: space-between;
   width: 95%;
   height: 40px;
-  background-color: rgb(235, 150, 110);
   margin-bottom: 1.5rem ;
   border-radius: 15px;
 }
@@ -47,10 +44,11 @@
   justify-content: space-between;
   align-items: center;
   width: 90%;
-  background-color: rgb(121, 182, 190);
   padding: 10px;
   margin-top: 8px;
-  box-shadow: 4px 4px rgb(104, 105, 105);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border-radius: 10px;
+  background: #fff;
 }
 
 .checkbox{
@@ -67,29 +65,34 @@
 .inputArea{
   width: 80%;
   border-radius: 5px;
+  background: #fff;
+  color: #555;
   border: none;
   outline: none;
-
-
+  border: 2px solid #ccc;
+  box-shadow:  0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  margin-right: 20px;
+  padding: 0px 14px;
+  font-size: 16px;
 }
+
 .button{
   width: 8rem;
   border-radius: 5rem;
   border: none;
   cursor: pointer;
-  
+  background: #269ED5;
+  color: #fff;
 }
 
 .button:hover,
 .button:active{
-  color: rgb(55, 43, 216);
-  /* background-color: burlywood; */
-  border: solid rgb(114, 189, 176);
+  background: rgba(38,158,213,.8);
 }
 
 .list_text{
   font-family: 'Open Sans', sans-serif;;
-  color: rgb(255, 255, 255);
+  color:black;
   font-size: medium;
 }
 .action{
@@ -98,26 +101,35 @@
 }
 
 .button__edit{
-
   width: 5rem;
   margin: 5px;
   border: none;
-  color: #1455d8;
+  color: #000000;
   cursor: pointer;
   background-color: rgb(240, 240, 240);
   border-radius: 4px;
+  padding: 5px 10px;
 }
-.button__delete{
 
+.button__edit:hover,
+.button__edit:active{
+  background-color: rgb(192, 192, 192);
+}
+
+.button__delete{
+  padding: 5px 10px;
   width: 5rem;
-  color: red;
+  background-color: #e84b63;
   cursor: pointer;
+  border: unset;
+  border-radius: 4px;
+  color: #fff;
 }
 .button__delete:hover,
 .button__delete:active{
   font-weight: 500;
   color: rgb(255, 255, 255);
-  background-color: rgb(221, 88, 88);
+  background-color: rgba(232, 75, 99,.8);
    border: none; 
    border-radius: 4px;
 }
